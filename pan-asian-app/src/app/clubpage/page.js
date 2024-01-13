@@ -1,16 +1,29 @@
 "use client"
-
 import React, { useState } from 'react';
+import { useDropzone } from 'react-dropzone';
 
 const ClubPage = () => {
   const [foods, setFoods] = useState([
-
   ]);
 
   const [newFood, setNewFood] = useState({
     name: '',
     image: '',
     description: '',
+  });
+
+  const onDrop = (acceptedFiles) => {
+    // Assuming only one file is allowed
+    const imageFile = acceptedFiles[0];
+    setNewFood((prevFood) => ({
+      ...prevFood,
+      image: URL.createObjectURL(imageFile),
+    }));
+  };
+
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: 'image/*',
+    onDrop,
   });
 
   const handleInputChange = (e) => {
@@ -63,16 +76,19 @@ const ClubPage = () => {
               className="border p-2"
             />
           </label>
-          <label className="mb-2">
-            Image URL:
-            <input
-              type="text"
-              name="image"
-              value={newFood.image}
-              onChange={handleInputChange}
-              className="border p-2"
-            />
-          </label>
+          <div className="mb-2">
+            <label htmlFor="image" className="block mb-1">
+              Image Upload:
+            </label>
+            <div {...getRootProps()} className="border p-2 cursor-pointer">
+              <input {...getInputProps()} id="image" />
+              {newFood.image ? (
+                <img src={newFood.image} alt="Preview" className="max-w-full h-auto" />
+              ) : (
+                <p>Drag 'n' drop an image here, or click to select one</p>
+              )}
+            </div>
+          </div>
           <label className="mb-2">
             Description:
             <textarea
@@ -92,5 +108,7 @@ const ClubPage = () => {
 };
 
 export default ClubPage;
+
+
 
 
