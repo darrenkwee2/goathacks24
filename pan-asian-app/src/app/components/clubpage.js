@@ -1,16 +1,18 @@
 "use client"
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import NavBar from '../components/navbar';
+import NavBar from './navbar';
 
-const ClubPage = () => {
-  const [foods, setFoods] = useState([
-  ]);
+const ClubPage = ({name, logo, orgFoods = []}) => {
+  const [foods, setFoods] = useState(orgFoods);
 
   const [newFood, setNewFood] = useState({
     name: '',
     image: '',
     description: '',
+    allergens: '',
+    cultural_facts: '',
+    quantity: '',
   });
 
   const onDrop = (acceptedFiles) => {
@@ -41,16 +43,17 @@ const ClubPage = () => {
       name: '',
       image: '',
       description: '',
+      allergens: '',
+      cultural_facts: '',
+      quantity: '',
     });
   };
 
   return (
-    <div>
-    <NavBar></NavBar>
     <div className="max-w-2xl mx-auto p-4">
       <header className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-2 text-black">Club Name</h1>
-        <img className="max-w-full h-auto mx-auto" src="logo.png" alt="Club Logo" />
+        <h1 className="text-3xl font-bold mb-2 text-black">{name}</h1>
+        <img className="max-w-full h-auto mx-auto" src={logo} alt={`${name} Logo`}/>
       </header>
 
       <div className="mb-4">
@@ -59,8 +62,15 @@ const ClubPage = () => {
           <div key={index} className="flex flex-col md:flex-row mb-8">
             <img className="max-w-full md:max-w-md h-auto md:mr-4 mb-4 md:mb-0" src={food.image} alt={food.name} />
             <div className="flex-grow">
-              <h3 className="text-xl font-bold mb-2 text-black">{food.name}</h3>
-              <p className="text-black">{food.description}</p>
+              <h1 className="text-xl font-bold mb-2 text-black">{food.name}</h1>
+              <p className="text-black">Description: {food.description}</p>
+              <p className="text-black">Allergens: {food.allergens}</p>
+              <p className="text-black">Cultural Facts: {food.cultural_facts}</p>
+              {food.quantity > 0 ? (
+                <p className="text-green-500">In Stock</p>
+              ) : (
+                <p className="text-red-500"> Out of Stock</p>
+              )}
             </div>
           </div>
         ))}
@@ -101,12 +111,38 @@ const ClubPage = () => {
               className="border p-2"
             />
           </label>
+          <label className="mb-2 text-black">
+            Allergens:
+            <textarea
+              name="allergens"
+              value={newFood.allergens}
+              onChange={handleInputChange}
+              className="border p-2"
+            />
+          </label>
+          <label className="mb-2 text-black">
+            Cultural Facts:
+            <textarea
+              name="cultural_facts"
+              value={newFood.cultural_facts}
+              onChange={handleInputChange}
+              className="border p-2"
+            />
+          </label>
+          <label className="mb-2 text-black">
+            Quantity:
+            <input
+              name="quantity"
+              value={newFood.quantity}
+              onChange={handleInputChange}
+              className="border p-2"
+            />
+          </label>
           <button type="button" onClick={handleAddFood} className="bg-blue-500 text-white p-2">
             Add Food
           </button>
         </form>
       </div>
-    </div>
     </div>
   );
 };

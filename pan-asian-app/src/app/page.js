@@ -14,10 +14,21 @@ const associations = [
   'Japanese Student Association',
 ];
 
+const clubpages = [
+  '/sase',
+  '/sasa',
+  '/vsa',
+  '/fsa',
+  '/cssa',
+  '/ksa',
+  'shaka',
+  '/wooja',
+]
+
 export default function Home() {
-  const renderAssociationLink = (name) => (
+  const renderAssociationLink = (name, clubpage) => (
     <div key={name} className="mb-10 lg:mb-32 w-full grid text-center">
-      <Link href="/clubpage" className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
+      <Link href={clubpage} passHref className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
         <h2 className={`mb-3 text-3xl font-semibold text-gray-700`}>{name}</h2>
       </Link>
     </div>
@@ -30,7 +41,7 @@ export default function Home() {
         <img class="h-auto max-w-full" src="/PAN_ASIAN.svg" alt="image description">      
         </img>
       </header>
-      {associations.map(renderAssociationLink)}
+      {associations.map((association, index) => renderAssociationLink(association, clubpages[index]))}
     </body>
   );
 }

@@ -1,6 +1,5 @@
 "use client"
 import React, { useState } from 'react';
-import { useDropzone } from 'react-dropzone';
 import NavBar from '../components/navbar';
 
 const AboutPage = () => {
