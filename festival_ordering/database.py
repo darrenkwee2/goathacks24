@@ -12,9 +12,6 @@ class Database:
         firebase_admin.initialize_app(cred)
         self.db = firestore.client()
         self.latest_order = 1
-        # items_collection = db.collection('items')
-        # orders_collection = db.collection('orders')
-        # organizations_collection = db.collection('organizations')
 
 
     def place_order(self, user_id, items):
