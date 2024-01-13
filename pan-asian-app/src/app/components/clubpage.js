@@ -5,12 +5,11 @@ const ClubPage = ({name, logo, orgFoods = []}) => {
   const [foods, setFoods] = useState(orgFoods);
 
   const [newFood, setNewFood] = useState({
-    name: '',
+    english_name: '',
+    traditional_name: '',
     image: '',
     description: '',
-    allergens: '',
-    cultural_facts: '',
-    quantity: '',
+    ingredients: '',
   });
 
   const onDrop = (acceptedFiles) => {
@@ -38,12 +37,11 @@ const ClubPage = ({name, logo, orgFoods = []}) => {
   const handleAddFood = () => {
     setFoods((prevFoods) => [...prevFoods, newFood]);
     setNewFood({
-      name: '',
+      english_name: '',
+      traditional_name: '',
       image: '',
       description: '',
-      allergens: '',
-      cultural_facts: '',
-      quantity: '',
+      ingredients: '',
     });
   };
 
@@ -58,17 +56,12 @@ const ClubPage = ({name, logo, orgFoods = []}) => {
         <h2 className="text-2xl font-bold mb-2 text-black">Menu</h2>
         {foods.map((food, index) => (
           <div key={index} className="flex flex-col md:flex-row mb-8">
-            <img className="max-w-full md:max-w-md h-auto md:mr-4 mb-4 md:mb-0" src={food.image} alt={food.name} />
+            <img className="max-w-full md:max-w-md h-auto md:mr-4 mb-4 md:mb-0" src={food.image} alt={food.english_name} />
             <div className="flex-grow">
-              <h1 className="text-xl font-bold mb-2 text-black">{food.name}</h1>
+              <h1 className="text-xl font-bold mb-2 text-black">{food.english_name}</h1>
+              <h2 className="text-xl font-bold mb-2 text-black">{food.traditional_name}</h2>
               <p className="text-black">Description: {food.description}</p>
-              <p className="text-black">Allergens: {food.allergens}</p>
-              <p className="text-black">Cultural Facts: {food.cultural_facts}</p>
-              {food.quantity > 0 ? (
-                <p className="text-green-500">In Stock</p>
-              ) : (
-                <p className="text-red-500"> Out of Stock</p>
-              )}
+              <p className="text-black">Ingredients/Allergenns: {food.ingredients}</p>
             </div>
           </div>
         ))}
@@ -78,18 +71,28 @@ const ClubPage = ({name, logo, orgFoods = []}) => {
         <h2 className="text-2xl font-bold mb-2 text-black">Add New Food</h2>
         <form className="flex flex-col mb-4">
           <label className="mb-2 text-black">
-            Food Name:
+            English Name:
             <input
               type="text"
-              name="name"
-              value={newFood.name}
+              name="english_name"
+              value={newFood.english_name}
+              onChange={handleInputChange}
+              className="border p-2"
+            />
+          </label>
+          <label className="mb-2 text-black">
+            Traditional Name:
+            <input
+              type="text"
+              name="traditional_name"
+              value={newFood.traditional_name}
               onChange={handleInputChange}
               className="border p-2"
             />
           </label>
           <div className="mb-2">
             <label htmlFor="image" className="block mb-1 text-black">
-              Image Upload:
+              Image:
             </label>
             <div {...getRootProps()} className="border p-2 cursor-pointer">
               <input {...getInputProps()} id="image" />
@@ -101,7 +104,7 @@ const ClubPage = ({name, logo, orgFoods = []}) => {
             </div>
           </div>
           <label className="mb-2 text-black">
-            Description:
+            Description/Cultural Facts:
             <textarea
               name="description"
               value={newFood.description}
@@ -110,28 +113,10 @@ const ClubPage = ({name, logo, orgFoods = []}) => {
             />
           </label>
           <label className="mb-2 text-black">
-            Allergens:
+            Ingredients/Allergenns:
             <textarea
-              name="allergens"
-              value={newFood.allergens}
-              onChange={handleInputChange}
-              className="border p-2"
-            />
-          </label>
-          <label className="mb-2 text-black">
-            Cultural Facts:
-            <textarea
-              name="cultural_facts"
-              value={newFood.cultural_facts}
-              onChange={handleInputChange}
-              className="border p-2"
-            />
-          </label>
-          <label className="mb-2 text-black">
-            Quantity:
-            <input
-              name="quantity"
-              value={newFood.quantity}
+              name="ingredients"
+              value={newFood.ingredients}
               onChange={handleInputChange}
               className="border p-2"
             />

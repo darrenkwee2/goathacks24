@@ -68,14 +68,15 @@ class Database:
     def set_item_availability(self, item, is_available):
         self.db.collection('items').document(item).update({'is_available': is_available})
 
-    def add_item(self, english_name, traditional_name, organization, description, ingredients):
+    def add_item(self, english_name, traditional_name, organization, description, ingredients, img_URL):
         new_item = {
             'english_name': english_name,
             'traditional_name': traditional_name,
             'description': description,
             'is_available': True,
             'organization': self.db.collection('organizations').document(organization),
-            'ingredients': ingredients
+            'ingredients': ingredients,
+            'img_URL': img_URL
         }
         self.db.collection('items').document(english_name.lower().replace(" ", "_")).set(new_item)
 

@@ -37,7 +37,8 @@ def add_item():
     ingredients = data.get('ingredients')
     organization = data.get('organization')
     traditional_name = data.get('traditional_name')
-    db.add_item(english_name, traditional_name, organization, description, ingredients)
+    img_URL = data.get('img_URL')
+    db.add_item(english_name, traditional_name, organization, description, ingredients, img_URL)
 
     return jsonify({'result': 'Added item successfully.'})
 
