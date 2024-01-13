@@ -14,7 +14,7 @@ export default function Home() {
          <div className="nav-elements">
            <ul>
              <li>
-               <a href="#">About</a>
+               <a href="/aboutpage">About</a>
              </li>
              <li>
               <a href="#">Our Organizations</a>
