@@ -1,4 +1,3 @@
-// pages/club.js
 import React, { useState } from 'react';
 
 const ClubPage = () => {
