@@ -5,11 +5,32 @@ import Link from 'next/link'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="w-full h-screen bg-[#efd9c3]">
+    <body className="flex min-h-screen flex-col items-center justify-between p-24">
+      <header className="w-full h-screen bg-[#ebd4c7]">
         <img class="h-auto max-w-full" src="/PAN_ASIAN.svg" alt="image description">      
         </img>
-      </div>
+        <nav className="navbar">
+        <div className="container">
+         <div className="nav-elements">
+           <ul>
+             <li>
+               <a href="#">About</a>
+             </li>
+             <li>
+              <a href="#">Our Organizations</a>
+             </li>
+             <li>
+              <a href="#">Your Orders</a>
+             </li>
+             <li>
+              <a href="#">Vendor Login</a>
+             </li>
+           </ul>
+         </div>
+       </div>
+     </nav>
+
+      </header>
 
       <div className="mb-10 lg:mb-32 w-full grid text-center">
         <Link href="/clubpage"
@@ -82,6 +103,6 @@ export default function Home() {
           </h2>
         </Link>
       </div>
-    </main>
-  )
+    </body>
+  );
 }
