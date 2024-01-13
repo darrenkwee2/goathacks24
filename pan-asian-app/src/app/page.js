@@ -23,7 +23,6 @@ export default function Home() {
         <img class="h-auto max-w-full" src="/PAN_ASIAN.svg" alt="image description">      
         </img>
 
-
       </header>
 
       <div className="mb-10 lg:mb-32 w-full grid text-center">
