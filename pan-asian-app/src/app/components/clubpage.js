@@ -1,7 +1,5 @@
-"use client"
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import NavBar from './navbar';
 
 const ClubPage = ({name, logo, orgFoods = []}) => {
   const [foods, setFoods] = useState(orgFoods);

@@ -36,9 +36,9 @@ export default function Home() {
 
   return (
     <body className="flex min-h-screen flex-col items-center justify-between p-24">
-      <header className="w-full h-screen bg-[#ebd4c7]">             
+      <header className="w-full bg-[#ebd4c7]">             
         <NavBar></NavBar>
-        <img class="h-auto max-w-full" src="/PAN_ASIAN.svg" alt="image description">      
+        <img className="h-auto max-w-full mb-10" src="/PAN_ASIAN.svg" alt="image description">      
         </img>
       </header>
       {associations.map((association, index) => renderAssociationLink(association, clubpages[index]))}
