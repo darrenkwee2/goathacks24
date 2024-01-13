@@ -1,0 +1,20 @@
+Vendor
+- I want to see all of the incoming orders in chronological order
+- I want to be able to mark orders as ready
+- I want mark an item as out of stock
+- I want to provide an image, cultural facts, ingredients, alergen and descriptions for items
+
+
+Participant
+- I want to be able to create an account
+- I want to place an order for a specific food item.
+- I want to recieve an order number for my specific order. 
+- I want recieve a notification when that order is ready. 
+- I want to learn cultural facts about the food I have ordered. 
+- I want to have access to the ingredients and a brief description of all of the items.
+- I want to see which food items are still available to order. 
+- I want to use NLP to be able to place an order. 
+
+
+Design 
+- 
