@@ -4,16 +4,7 @@ import React, { useState } from 'react';
 
 const ClubPage = () => {
   const [foods, setFoods] = useState([
-    {
-      name: 'Burger',
-      image: 'burger.jpg',
-      description: 'Delicious burger with all the fixings.',
-    },
-    {
-      name: 'Pizza',
-      image: 'pizza.jpg',
-      description: 'Classic pizza with your favorite toppings.',
-    },
+
   ]);
 
   const [newFood, setNewFood] = useState({
