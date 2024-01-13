@@ -1,3 +1,6 @@
+import threading
+import time
+
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
@@ -12,10 +15,10 @@ class Database:
         self.db = firestore.client()
         self.latest_order = 1
 
-    def place_order(self, user_id, items):
+    def place_order(self, user_id, item):
         new_order = {
             'user': self.db.collection('users').document(user_id),
-            'items': items,
+            'item': item,
             'time': datetime.datetime.now(),
             'is_ready': False,
             'order_number': self.latest_order
@@ -23,12 +26,19 @@ class Database:
         self.latest_order += 1
         self.db.collection('orders').add(new_order)
 
-    def get_orders(self, user_id=None):
+    def get_orders(self, user_id=None, organization_id=None):
         if user_id is not None:
             user = self.db.collection('users').document(user_id)
             orders = (
                 self.db.collection('orders')
                 .where(filter=FieldFilter('user', '==', user))
+                .stream()
+            )
+        elif organization_id is not None:
+            organization = self.db.collection('organizations').document(organization_id)
+            orders = (
+                self.db.collection('orders')
+                .where(filter=FieldFilter('organization', '==', organization))
                 .stream()
             )
         else:
@@ -69,19 +79,30 @@ class Database:
         }
         self.db.collection('items').document(english_name.lower().replace(" ", "_")).set(new_item)
 
+    def get_orders_realtime(self, query_result):
+        # Create an Event for notifying main thread.
+        callback_done = threading.Event()
+
+        # Create a callback on_snapshot function to capture changes
+        def on_snapshot(col_snapshot, changes, read_time):
+            print("Callback received query snapshot.")
+            for doc in col_snapshot:
+                query_result.append(doc)
+            callback_done.set()
+
+        col_query = self.db.collection("organizations")
+        # Watch the collection query
+        query_watch = col_query.on_snapshot(on_snapshot)
+
 
 if __name__ == '__main__':
     db = Database()
-    # add_item(connection, 'Bottled Water', 'Bottled Water', 'SASE', 'Water in a bottle.', list(['water', 'bottle']))
-    # set_item_availability(connection, 'bottled_water', False)
-    # place_order(connection, 'rvyDzQAc3WYk7T1lEzSRlTKHnwX2', list(['chicken_satay']))
-    # place_order(connection, 'rvyDzQAc3WYk7T1lEzSRlTKHnwX2', list(['chicken_satay']))
-    # place_order(connection, 'rvyDzQAc3WYk7T1lEzSRlTKHnwX2', list(['chicken_satay']))
-    # place_order(connection, 'rvyDzQAc3WYk7T1lEzSRlTKHnwX2', list(['chicken_satay']))
-    # set_order_ready(connection, 1, True)
-    # orders = get_orders(connection, 'rvyDzQAc3WYk7T1lEzSRlTKHnwX2')
-    # for o in orders:
-    #     print(o.id)
-    # menu = db.get_items("AIS")
-    # for i in menu:
-    #     print(i.id)
+    # db.place_order('rvyDzQAc3WYk7T1lEzSRlTKHnwX2', list(['chicken_satay']))
+    # db.place_order('rvyDzQAc3WYk7T1lEzSRlTKHnwX2', list(['chicken_satay']))
+    # db.place_order('rvyDzQAc3WYk7T1lEzSRlTKHnwX2', list(['chicken_satay']))
+    # db.place_order('rvyDzQAc3WYk7T1lEzSRlTKHnwX2', list(['chicken_satay']))
+    # db.place_order('rvyDzQAc3WYk7T1lEzSRlTKHnwX2', list(['chicken_satay']))
+    orders = list()
+    db.get_orders_realtime(orders)
+    while True:
+        time.sleep(3)

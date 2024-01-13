@@ -1,3 +1,4 @@
+from firebase_admin import auth
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from flask_restful import Api, Resource
 from database import Database
@@ -5,10 +6,6 @@ from database import Database
 app = Flask(__name__)
 api = Api(app)
 db = Database()
-
-# In-memory database for demonstration purposes
-orders = []
-todos = {}
 
 
 # Get menu function per organization
@@ -30,41 +27,72 @@ def get_menu():
 
 
 @app.route('/menu', methods=['POST'])
-def add_menu_item():
+def add_item():
     data = request.get_json()
-    if 'english_name' not in data or 'organization' not in data or 'ingredients' not in data:
-        return jsonify({'error': 'Invalid request. Provide id, name, and price in JSON payload.'}), 400
+    # if 'english_name' not in data or 'organization' not in data or 'ingredients' not in data:
+    #     return jsonify({'error': 'Invalid request. Provide id, name, and price in JSON payload.'}), 400
 
-    item_description = data.get('item_description')
+    description = data.get('description')
     english_name = data.get('english_name')
     ingredients = data.get('ingredients')
     organization = data.get('organization')
     traditional_name = data.get('traditional_name')
-    db.add_item(english_name, traditional_name, organization, item_description, ingredients)
+    db.add_item(english_name, traditional_name, organization, description, ingredients)
 
+    return jsonify({'result': 'Added item successfully.'})
+
+
+@app.route('/orders', methods=['GET'])
+def get_orders():
+    try:
+        # data = request.get_json()
+        #
+        # user = data.get('user', None)
+        # organization_id = data.get('organization_id', None)
+        #
+        # if user is not None:
+        #     db.get_orders(user_id=user)
+        # elif organization_id is not None:
+        #     db.get_orders(organization_id=organization_id)
+        # else:
+        #     db.get_orders()
+
+        user = request.args.get('user')
+        orders = db.get_orders(user)
+        items = list()
+        for order in orders:
+            order_info = order.to_dict()
+            order_info['user'] = order_info.get('user').id
+            items.append((order.id, order_info))
+
+        return jsonify({'result': orders})
+
+        # return jsonify({'result': get_orders})
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
 
 @app.route('/')
 def about():
-    return render_template('about.html')
+    return render_template('/about')
 
 
 @app.route('/')
 def index():
-    return render_template('index.html', orders=orders)
+    return render_template('/app')
 
 
-@app.route('/order_form', methods=['GET', 'POST'])
+@app.route('/components/clubpage', methods=['GET', 'POST'])
 def order_form():
+    data = request.get_json()
     if request.method == 'POST':
-        item = request.form['item']
-        quantity = request.form['quantity']
+        item = data.get('item')
+        user_id = auth.verify_id_token(data.get('token')).get('uid')
+        db.place_order(user_id, item)
 
-        order = {'item': item, 'quantity': quantity}
-        orders.append(order)
+        return redirect(url_for('/components/clubpage'))
 
-        return redirect(url_for('index'))
-
-    return render_template('order_form.html')
+    return render_template('/components/clubpage')
 
 
 if __name__ == '__main__':
