@@ -1,4 +1,5 @@
 import Image from 'next/image'
+// import SvgComponent from './PanAsianLogo'
 
 export default function Home() {
   return (
