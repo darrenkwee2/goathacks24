@@ -46,27 +46,27 @@ const ClubPage = () => {
   return (
     <div className="max-w-2xl mx-auto p-4">
       <header className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-2">Club Name</h1>
+        <h1 className="text-3xl font-bold mb-2 text-black">Club Name</h1>
         <img className="max-w-full h-auto mx-auto" src="logo.png" alt="Club Logo" />
       </header>
 
       <div className="mb-4">
-        <h2 className="text-2xl font-bold mb-2">Menu</h2>
+        <h2 className="text-2xl font-bold mb-2 text-black">Menu</h2>
         {foods.map((food, index) => (
           <div key={index} className="flex flex-col md:flex-row mb-8">
             <img className="max-w-full md:max-w-md h-auto md:mr-4 mb-4 md:mb-0" src={food.image} alt={food.name} />
             <div className="flex-grow">
-              <h3 className="text-xl font-bold mb-2">{food.name}</h3>
-              <p>{food.description}</p>
+              <h3 className="text-xl font-bold mb-2 text-black">{food.name}</h3>
+              <p className="text-black">{food.description}</p>
             </div>
           </div>
         ))}
       </div>
 
       <div>
-        <h2 className="text-2xl font-bold mb-2">Add New Food</h2>
+        <h2 className="text-2xl font-bold mb-2 text-black">Add New Food</h2>
         <form className="flex flex-col mb-4">
-          <label className="mb-2">
+          <label className="mb-2 text-black">
             Food Name:
             <input
               type="text"
@@ -77,7 +77,7 @@ const ClubPage = () => {
             />
           </label>
           <div className="mb-2">
-            <label htmlFor="image" className="block mb-1">
+            <label htmlFor="image" className="block mb-1 text-black">
               Image Upload:
             </label>
             <div {...getRootProps()} className="border p-2 cursor-pointer">
@@ -85,11 +85,11 @@ const ClubPage = () => {
               {newFood.image ? (
                 <img src={newFood.image} alt="Preview" className="max-w-full h-auto" />
               ) : (
-                <p>Drag 'n' drop an image here, or click to select one</p>
+                <p className="text-black">Drag 'n' drop an image here, or click to select one</p>
               )}
             </div>
           </div>
-          <label className="mb-2">
+          <label className="mb-2 text-black">
             Description:
             <textarea
               name="description"
