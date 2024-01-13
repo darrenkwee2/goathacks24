@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import NavBar from '../components/navbar';
 import ClubPage from '../components/clubpage';
 
-const sasePage = () => {
+const woojaPage = () => {
 
     const orgData = {
-        name: 'Society of Asian Scientists and Engineers',
+        name: 'Japanese Student Association',
         logo: '',
         orgFoods: [],
     };
@@ -21,5 +21,5 @@ const sasePage = () => {
   ); 
   };
   
-  export default sasePage;
+  export default woojaPage;
   
