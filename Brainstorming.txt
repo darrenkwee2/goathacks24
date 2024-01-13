@@ -16,5 +16,27 @@ Participant
 - I want to use NLP to be able to place an order. 
 
 
-Design 
-- 
+Database Design
+
+Items
+- ItemID
+- Organization FK
+- English Name
+- Traditional Name
+- Description
+- Ingredients
+- isAvailable
+
+Order
+- OrderID
+- Items FK 
+- Time
+- isReady
+- CustomerID
+
+Organization 
+- Full Name
+- Acronym 
+
+
+
