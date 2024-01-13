@@ -2,7 +2,6 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 import datetime
-
 from google.cloud.firestore_v1 import FieldFilter
 
 
@@ -12,7 +11,6 @@ class Database:
         firebase_admin.initialize_app(cred)
         self.db = firestore.client()
         self.latest_order = 1
-
 
     def place_order(self, user_id, items):
         new_order = {
@@ -36,6 +34,16 @@ class Database:
         else:
             orders = self.db.collection('orders').stream()
         return orders
+
+    def get_items(self, organization):
+        org_ref = self.db.collection('organizations').document(organization)
+        items = (
+            self.db.collection('items')
+            .where(filter=FieldFilter('organization', '==', org_ref))
+            .stream()
+        )
+
+        return items
 
     def set_order_ready(self, order_number, is_ready):
         orders = (
@@ -74,3 +82,6 @@ if __name__ == '__main__':
     # orders = get_orders(connection, 'rvyDzQAc3WYk7T1lEzSRlTKHnwX2')
     # for o in orders:
     #     print(o.id)
+    # menu = db.get_items("AIS")
+    # for i in menu:
+    #     print(i.id)
