@@ -7,7 +7,7 @@ const sasePage = () => {
 
     const orgData = {
         name: 'Society of Asian Scientists and Engineers',
-        logo: '',
+        logo: '/saselogo.svg',
         orgFoods: [],
     };
 

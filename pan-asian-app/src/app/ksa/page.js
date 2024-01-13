@@ -7,7 +7,7 @@ const ksaPage = () => {
 
     const orgData = {
         name: 'Korean Student Association',
-        logo: '',
+        logo: '/ksa.svg',
         orgFoods: [],
     };
 

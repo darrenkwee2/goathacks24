@@ -7,7 +7,7 @@ const vsaPage = () => {
 
     const orgData = {
         name: 'Vietnamese Student Association',
-        logo: '',
+        logo: '/vsalogo.svg',
         orgFoods: [],
     };
 

@@ -7,7 +7,7 @@ const fsaPage = () => {
 
     const orgData = {
         name: 'Filipino Student Association',
-        logo: '',
+        logo: '/fsalogo.svg',
         orgFoods: [],
     };
 

@@ -7,7 +7,7 @@ const cssaPage = () => {
 
     const orgData = {
         name: 'Chinese Student and Scholar Association',
-        logo: '',
+        logo: '/cssalogo.svg',
         orgFoods: [],
     };
 
