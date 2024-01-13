@@ -1,73 +1,51 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from flask_restful import Api, Resource
+from database import Database
 
 app = Flask(__name__)
 api = Api(app)
+db = Database()
 
 # In-memory database for demonstration purposes
 orders = []
 todos = {}
 
+
 # Get menu function per organization
 @app.route('/menu', methods=['GET'])
 def get_menu():
     try:
-        # Extract parameters from the query string
-        organization = request.args.get('orgnizaion')
+        organization = request.args.get('organization')
+        items = db.get_items(organization)
+        menu = list()
+        for item in items:
+            item_info = item.to_dict()
+            item_info['organization'] = item_info.get('organization').id
+            menu.append((item.id, item_info))
 
-        # Do something with the parameters (replace this with your logic)
-        result = f"Received parameters: organization={organization}"
-
-        # Return a JSON response
-        return jsonify({'result': result})
+        return jsonify({'result': menu})
 
     except Exception as e:
         return jsonify({'error': str(e)}), 400
 
 
-
 @app.route('/menu', methods=['POST'])
 def add_menu_item():
     data = request.get_json()
-    if 'id' not in data or 'name' not in data or 'price' not in data:
+    if 'english_name' not in data or 'organization' not in data or 'ingredients' not in data:
         return jsonify({'error': 'Invalid request. Provide id, name, and price in JSON payload.'}), 400
 
-    item_id = data['id']
-    name = data['name']
-    price = data['price']
-    menu_items[item_id] = {'name': name, 'price': price}
-
-    return jsonify({item_id: {'name': name, 'price': price}})
-
-
-@app.route('/menu/<string:item_id>', methods=['PUT'])
-def update_menu_item(item_id):
-    data = request.get_json()
-    if 'name' not in data or 'price' not in data:
-        return jsonify({'error': 'Invalid request. Provide name and price in JSON payload.'}), 400
-
-    name = data['name']
-    price = data['price']
-    menu_items[item_id] = {'name': name, 'price': price}
-
-    return jsonify({item_id: {'name': name, 'price': price}})
-
-
-
-@app.route('/menu/<string:item_id>', methods=['DELETE'])
-def delete_menu_item(item_id):
-    if item_id not in menu_items:
-        return jsonify({'error': 'Item not found'}), 404
-
-    del menu_items[item_id]
-    return jsonify({'result': True})
-
+    item_description = data.get('item_description')
+    english_name = data.get('english_name')
+    ingredients = data.get('ingredients')
+    organization = data.get('organization')
+    traditional_name = data.get('traditional_name')
+    db.add_item(english_name, traditional_name, organization, item_description, ingredients)
 
 
 @app.route('/')
 def about():
     return render_template('about.html')
-
 
 
 @app.route('/')
@@ -87,6 +65,7 @@ def order_form():
         return redirect(url_for('index'))
 
     return render_template('order_form.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
