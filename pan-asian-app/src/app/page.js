@@ -35,6 +35,7 @@ export default function Home() {
   );
 
   return (
+    
     <body className="flex min-h-screen flex-col items-center justify-between p-24">
       <header className="w-full bg-[#ebd4c7]">             
         <NavBar></NavBar>

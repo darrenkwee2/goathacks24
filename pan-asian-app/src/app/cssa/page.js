@@ -6,8 +6,7 @@ import ClubPage from '../components/clubpage';
 const cssaPage = () => {
 
     const orgData = {
-        name: 'Chinese Student and Scholar Association',
-        logo: '/cssalogo.svg',
+        logo: '/ClubBanners/CSSA.jpg',
         orgFoods: [],
     };
 

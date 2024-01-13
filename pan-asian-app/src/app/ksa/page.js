@@ -6,8 +6,7 @@ import ClubPage from '../components/clubpage';
 const ksaPage = () => {
 
     const orgData = {
-        name: 'Korean Student Association',
-        logo: '/ksa.svg',
+        logo: '/ClubBanners/KSA.jpg',
         orgFoods: [],
     };
 

@@ -6,8 +6,7 @@ import ClubPage from '../components/clubpage';
 const sasePage = () => {
 
     const orgData = {
-        name: 'South Asian Student Association',
-        logo: '',
+        logo: '/ClubBanners/SASA.jpg',
         orgFoods: [],
     };
 

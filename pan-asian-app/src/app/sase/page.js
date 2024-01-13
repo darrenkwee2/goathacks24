@@ -6,8 +6,7 @@ import ClubPage from '../components/clubpage';
 const sasePage = () => {
 
     const orgData = {
-        name: 'Society of Asian Scientists and Engineers',
-        logo: '/saselogo.svg',
+        logo: '/ClubBanners/SASE.jpg',
         orgFoods: [],
     };
 

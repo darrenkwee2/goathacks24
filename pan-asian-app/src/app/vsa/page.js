@@ -6,8 +6,7 @@ import ClubPage from '../components/clubpage';
 const vsaPage = () => {
 
     const orgData = {
-        name: 'Vietnamese Student Association',
-        logo: '/vsalogo.svg',
+        logo: '/ClubBanners/VSA.jpg',
         orgFoods: [],
     };
 
