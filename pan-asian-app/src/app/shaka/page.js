@@ -6,8 +6,7 @@ import ClubPage from '../components/clubpage';
 const shakaPage = () => {
 
     const orgData = {
-        name: 'Hawaiian Cultural Association',
-        logo: '',
+        logo: '/ClubBanners/SHAKA.jpg',
         orgFoods: [],
     };
 

@@ -6,8 +6,7 @@ import ClubPage from '../components/clubpage';
 const fsaPage = () => {
 
     const orgData = {
-        name: 'Filipino Student Association',
-        logo: '/fsalogo.svg',
+        logo: '/ClubBanners/FSA.jpg',
         orgFoods: [],
     };
 

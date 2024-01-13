@@ -6,8 +6,7 @@ import ClubPage from '../components/clubpage';
 const woojaPage = () => {
 
     const orgData = {
-        name: 'Japanese Student Association',
-        logo: '',
+        logo: '/ClubBanners/WOOJA.jpg',
         orgFoods: [],
     };
 
