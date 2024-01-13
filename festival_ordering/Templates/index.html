@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordering System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Orders</h1>
+    <ul>
+        {% for order in orders %}
+            <li>{{ order.item }} - Quantity: {{ order.quantity }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('order_form') }}">Place an Order</a>
+</body>
+</html>

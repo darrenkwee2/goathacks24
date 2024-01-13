@@ -1,0 +1,1 @@
+{"name":"festival_ordering","version":"0.0.1","private":true,"scripts":{"start":"node node_modules/react-native/local-cli/cli.js start"},"dependencies":{"react-native":"0.73.2"},"devDependencies":{"metro":"^0.80.4"}}
