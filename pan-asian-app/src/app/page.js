@@ -27,13 +27,13 @@ const clubpages = [
 
 const logos = [
   '/ClubLogos/SASE.png',
-  '/ClubLogos/SASA',
+  '/ClubLogos/sasalogo.svg',
   '/ClubLogos/VSA.png',
   '/ClubLogos/FSA.png',
   '/ClubLogos/CSSA.png',
   '/ClubLogos/KSA.jpg',
-  '/ClubLogos/SHAKA',
-  '/ClubLogos/WOOJA',
+  '/ClubLogos/shakalogo.svg',
+  '/ClubLogos/woojalogo.svg',
 ]
 
 export default function Home() {
