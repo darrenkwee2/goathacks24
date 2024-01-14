@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import NavBar from '../components/navbar';
+import NavBarClient from '../components/navbar';
 import ClubPage from '../components/clubpage';
 
 const shakaPage = () => {
@@ -13,7 +13,7 @@ const shakaPage = () => {
     return (
         <body className="flex min-h-screen flex-col items-center justify-between p-24">
             <header className="w-full bg-[#ebd4c7]">             
-                <NavBar></NavBar>
+                <NavBarClient></NavBarClient>
             </header>
             <ClubPage {...orgData}/>        
         </body>   

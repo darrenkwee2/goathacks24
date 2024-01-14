@@ -53,6 +53,7 @@ def add_item():
         img_URL = data.get('img_URL')
         db.add_item(english_name, traditional_name, organization, description, ingredients, img_URL)
 
+        
         return jsonify({'result': 'Added item successfully.'}), 200
 
 
