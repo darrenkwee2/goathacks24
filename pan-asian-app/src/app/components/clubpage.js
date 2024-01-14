@@ -51,8 +51,7 @@ const ClubPage = ({name, logo, orgFoods = []}) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
-      });
+        body: JSON.stringify(data)});
   
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -171,6 +170,7 @@ const ClubPage = ({name, logo, orgFoods = []}) => {
           <button type="button" onClick={addItem} className="bg-[#924032] text-white p-2 mt-5">
             Add Food
           </button>
+          
         </form>
       </div>
     </div>
@@ -178,3 +178,4 @@ const ClubPage = ({name, logo, orgFoods = []}) => {
 };
 
 export default ClubPage;
+

@@ -52,8 +52,9 @@ def add_item():
         traditional_name = data.get('traditional_name')
         img_URL = data.get('img_URL')
         db.add_item(english_name, traditional_name, organization, description, ingredients, img_URL)
-        menu = db.get_items(organization)
-        return jsonify({'result': menu}), 200
+
+        
+        return jsonify({'result': 'Added item successfully.'}), 200
 
 
 @app.route('/orders', methods=['GET'])
