@@ -7,7 +7,7 @@ const ksaPage = () => {
 
     const orgData = {
         logo: '/ClubBanners/KSA.jpg',
-        orgFoods: [],
+        organization: "KSA",
     };
 
     return (

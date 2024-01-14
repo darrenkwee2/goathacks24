@@ -60,26 +60,26 @@ def add_item():
 @app.route('/orders', methods=['GET'])
 def get_orders():
     try:
-        user = request.args.get('user')
-        organization_id = request.args.get('organization_id')
-
-        if user is not None:
-            orders = db.get_orders(user)
+        user_id = request.args.get('user')
+        organization_id = request.args.get('organization')
+        if user_id is not None:
+            orders = db.get_orders(user_id=user_id)
         elif organization_id is not None:
             orders = db.get_orders(organization_id=organization_id)
         else:
-            return jsonify({'error': 'Either user or organization_id must be specified'})
+            return jsonify({'error': 'Either user or organization must be specified'})
 
         if not orders:
-            return jsonify({'result': f'No orders found for the specified {"user" if user else "organization"}.'})
+            return jsonify({'result': f'No orders found for the specified {"user" if user_id else "organization"}.'})
 
         items = list()
         for order in orders:
             order_info = order.to_dict()
             order_info['user'] = order_info.get('user').id
+            order_info['item'] = order_info.get('item').id
             items.append((order.id, order_info))
 
-        return jsonify({'result': list(items)})
+        return jsonify({'result': items})
 
     except Exception as e:
         return jsonify({'error': str(e)}), 400

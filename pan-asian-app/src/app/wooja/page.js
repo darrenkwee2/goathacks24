@@ -7,7 +7,7 @@ const woojaPage = () => {
 
     const orgData = {
         logo: '/ClubBanners/WOOJA.jpg',
-        orgFoods: [],
+        organization: "WOOJA",
     };
 
     return (

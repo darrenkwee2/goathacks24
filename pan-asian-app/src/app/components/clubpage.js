@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 
 const ClubPage = ({name, logo, orgFoods = []}) => {
-  const [foods, setFoods] = useState([]);
+  var [foods, setFoods] = useState([]);
 
   const [newFood, setNewFood] = useState({
     english_name: '',
@@ -58,14 +58,22 @@ const ClubPage = ({name, logo, orgFoods = []}) => {
       }
   
       const result = await response.json();
+      foods = result;
       console.log(result);
 
     } catch (error) {
       console.error('Error:', error);
 
       setFoods((prevFoods) => [...prevFoods, newFood]);
-    }
-
+      setNewFood({
+        english_name: '',
+        traditional_name: '',
+        img_URL: '',
+        description: '',
+        ingredients: '',
+        organization: '',
+      });
+  };
   };
 
   return (

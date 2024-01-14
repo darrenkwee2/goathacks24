@@ -7,7 +7,7 @@ const shakaPage = () => {
 
     const orgData = {
         logo: '/ClubBanners/SHAKA.jpg',
-        orgFoods: [],
+        organization: "SHAKA",
     };
 
     return (
