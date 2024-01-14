@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 
 const ClubPage = ({name, logo, orgFoods = []}) => {
-  const [foods, setFoods] = useState(orgFoods);
+  const [foods, setFoods] = useState();
 
   const [newFood, setNewFood] = useState({
     english_name: '',
@@ -10,6 +10,7 @@ const ClubPage = ({name, logo, orgFoods = []}) => {
     image: '',
     description: '',
     ingredients: '',
+    organization: '',
   });
 
   const onDrop = (acceptedFiles) => {
@@ -42,6 +43,7 @@ const ClubPage = ({name, logo, orgFoods = []}) => {
       image: '',
       description: '',
       ingredients: '',
+      organization: '',
     });
   };
 
@@ -53,7 +55,8 @@ const ClubPage = ({name, logo, orgFoods = []}) => {
         traditional_name: foods.traditional_name, 
         img_URL: foods.image, 
         description: foods.description, 
-        ingredients: foods.ingredients
+        ingredients: foods.ingredients,
+        organization: foods.organization,
       }
       const response = await fetch('/menu', {
         method: 'POST',
@@ -73,15 +76,6 @@ const ClubPage = ({name, logo, orgFoods = []}) => {
       console.error('Error:', error);
     }
   };
-  
-  // Call the function to add an item
-  addItem();
-
-
-
-
-
-
 
   return (
     <div className="max-w-2xl mx-auto p-4">
@@ -159,7 +153,16 @@ const ClubPage = ({name, logo, orgFoods = []}) => {
               className="border p-2"
             />
           </label>
-          <button type="button" onClick={handleAddFood} className="bg-blue-500 text-white p-2">
+          <label className="mb-2 text-black">
+            Organization:
+            <textarea
+              name="organization"
+              value={newFood.organization}
+              onChange={handleInputChange}
+              className="border p-2"
+            />
+          </label>
+          <button type="button" onClick={addItem} className="bg-blue-500 text-white p-2">
             Add Food
           </button>
         </form>
