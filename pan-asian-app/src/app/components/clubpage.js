@@ -35,28 +35,16 @@ const ClubPage = ({name, logo, orgFoods = []}) => {
     }));
   };
 
-  const handleAddFood = () => {
-    setFoods((prevFoods) => [...prevFoods, newFood]);
-    setNewFood({
-      english_name: '',
-      traditional_name: '',
-      image: '',
-      description: '',
-      ingredients: '',
-      organization: '',
-    });
-  };
-
 
   const addItem = async () => {
     try {
       const data = {
-        english_name:foods.english_name, 
-        traditional_name: foods.traditional_name, 
-        img_URL: foods.image, 
-        description: foods.description, 
-        ingredients: foods.ingredients,
-        organization: foods.organization,
+        english_name: newFood.english_name, 
+        traditional_name: newFood.traditional_name, 
+        img_URL: newFood.image, 
+        description: newFood.description, 
+        ingredients: newFood.ingredients,
+        organization: newFood.organization,
       }
       const response = await fetch('http://127.0.0.1:5000/menu', {
         method: 'POST',
@@ -84,6 +72,8 @@ const ClubPage = ({name, logo, orgFoods = []}) => {
 
     } catch (error) {
       console.error('Error:', error);
+
+      setFoods((prevFoods) => [...prevFoods, newFood]);
     }
 
   };
