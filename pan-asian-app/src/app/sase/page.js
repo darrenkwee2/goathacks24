@@ -7,7 +7,7 @@ const sasePage = () => {
 
     const orgData = {
         logo: '/ClubBanners/SASE.jpg',
-        orgFoods: [],
+        organization: "SASE",
     };
 
     return (

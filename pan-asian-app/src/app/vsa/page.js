@@ -7,7 +7,7 @@ const vsaPage = () => {
 
     const orgData = {
         logo: '/ClubBanners/VSA.jpg',
-        orgFoods: [],
+        organization: "VSA",
     };
 
     return (
