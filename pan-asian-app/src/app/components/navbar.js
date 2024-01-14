@@ -11,7 +11,6 @@ const NavBar = () => {
           <li><a className="mb-3 text-xl font-semibold text-white-700" href="/">Home</a></li>
           <li><a className="mb-3 text-xl font-semibold text-white-700" href="/">Login</a></li>
           <li><a className="mb-3 text-xl font-semibold text-white-700" href="/about">About</a></li>
-          <li><a className="mb-3 text-xl font-semibold text-white-700" href="/">Contact</a></li>
           <li><a className="mb-3 text-xl font-semibold text-white-700" href="/">Your Orders</a></li>
         </ul>
       </div>
