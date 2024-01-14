@@ -38,7 +38,7 @@ def get_menu():
 
 @app.route('/menu', methods=['POST'])
 def add_item():
-    print("trying to add item...")
+    # print("trying to add item...")
 
     if request.method == 'OPTIONS':
         # Handle OPTIONS request (preflight)
@@ -51,7 +51,6 @@ def add_item():
         organization = data.get('organization')
         traditional_name = data.get('traditional_name')
         img_URL = data.get('img_URL')
-        print(english_name)
         db.add_item(english_name, traditional_name, organization, description, ingredients, img_URL)
 
         return jsonify({'result': 'Added item successfully.'}), 200

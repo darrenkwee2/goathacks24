@@ -61,15 +61,6 @@ const ClubPage = ({name, logo, orgFoods = []}) => {
       const result = await response.json();
       console.log(result);
 
-      // const [newFood, setNewFood] = {
-      //   english_name: '',
-      //   traditional_name: '',
-      //   image: '',
-      //   description: '',
-      //   ingredients: '',
-      //   organization: '',
-      // };
-
     } catch (error) {
       console.error('Error:', error);
 
