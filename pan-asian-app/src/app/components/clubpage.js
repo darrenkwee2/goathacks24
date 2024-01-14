@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 
 const ClubPage = ({name, logo, orgFoods = []}) => {
-  const [foods, setFoods] = useState();
+  const [foods, setFoods] = useState([]);
 
   const [newFood, setNewFood] = useState({
     english_name: '',
