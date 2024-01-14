@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 
 const ClubPage = ({name, logo, orgFoods = []}) => {
-  const [foods, setFoods] = useState(orgFoods);
+  const [foods, setFoods] = useState([]);
 
   const [newFood, setNewFood] = useState({
     english_name: '',
@@ -10,6 +10,7 @@ const ClubPage = ({name, logo, orgFoods = []}) => {
     image: '',
     description: '',
     ingredients: '',
+    organization: '',
   });
 
   const onDrop = (acceptedFiles) => {
@@ -34,26 +35,16 @@ const ClubPage = ({name, logo, orgFoods = []}) => {
     }));
   };
 
-  const handleAddFood = () => {
-    setFoods((prevFoods) => [...prevFoods, newFood]);
-    setNewFood({
-      english_name: '',
-      traditional_name: '',
-      image: '',
-      description: '',
-      ingredients: '',
-    });
-  };
-
 
   const addItem = async () => {
     try {
       const data = {
-        english_name:foods.english_name, 
-        traditional_name: foods.traditional_name, 
-        img_URL: foods.image, 
-        description: foods.description, 
-        ingredients: foods.ingredients
+        english_name: newFood.english_name, 
+        traditional_name: newFood.traditional_name, 
+        img_URL: newFood.image, 
+        description: newFood.description, 
+        ingredients: newFood.ingredients,
+        organization: newFood.organization,
       }
       const response = await fetch('/menu', {
         method: 'POST',
@@ -71,17 +62,10 @@ const ClubPage = ({name, logo, orgFoods = []}) => {
       console.log(result);
     } catch (error) {
       console.error('Error:', error);
+
+      setFoods((prevFoods) => [...prevFoods, newFood]);
     }
   };
-  
-  // Call the function to add an item
-  addItem();
-
-
-
-
-
-
 
   return (
     <div className="max-w-2xl mx-auto p-4">
@@ -159,7 +143,16 @@ const ClubPage = ({name, logo, orgFoods = []}) => {
               className="border p-2"
             />
           </label>
-          <button type="button" onClick={handleAddFood} className="bg-blue-500 text-white p-2">
+          <label className="mb-2 text-black">
+            Organization:
+            <textarea
+              name="organization"
+              value={newFood.organization}
+              onChange={handleInputChange}
+              className="border p-2"
+            />
+          </label>
+          <button type="button" onClick={addItem} className="bg-blue-500 text-white p-2">
             Add Food
           </button>
         </form>
