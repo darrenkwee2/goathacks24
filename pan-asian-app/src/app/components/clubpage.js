@@ -85,7 +85,7 @@ const ClubPage = ({name, logo, orgFoods = []}) => {
       </header>
 
       <div className="mb-4">
-        <h2 className="text-2xl font-bold mb-2 text-black">Menu</h2>
+        <h2 className="text-4xl font-bold mb-2 text-black">Menu</h2>
         {foods.map((food, index) => (
           <div key={index} className="flex flex-col md:flex-row mb-8">
             <img className="max-w-full md:max-w-md h-auto md:mr-4 mb-4 md:mb-0" src={food.image} alt={food.english_name} />
@@ -102,67 +102,73 @@ const ClubPage = ({name, logo, orgFoods = []}) => {
       <div>
         <h2 className="text-2xl font-bold mb-2 text-black">Add New Food</h2>
         <form className="flex flex-col mb-4">
-          <label className="mb-2 text-black">
-            English Name:
-            <input
-              type="text"
-              name="english_name"
-              value={newFood.english_name}
-              onChange={handleInputChange}
-              className="border p-2"
-            />
-          </label>
-          <label className="mb-2 text-black">
-            Traditional Name:
-            <input
-              type="text"
-              name="traditional_name"
-              value={newFood.traditional_name}
-              onChange={handleInputChange}
-              className="border p-2"
-            />
-          </label>
-          <div className="mb-2">
-            <label htmlFor="image" className="block mb-1 text-black">
-              Image:
-            </label>
-            <div {...getRootProps()} className="border p-2 cursor-pointer">
-              <input {...getInputProps()} id="image" />
-              {newFood.image ? (
-                <img src={newFood.image} alt="Preview" className="max-w-full h-auto" />
-              ) : (
-                <p className="text-black">Drag 'n' drop an image here, or click to select one</p>
-              )}
-            </div>
-          </div>
-          <label className="mb-2 text-black">
-            Description/Cultural Facts:
-            <textarea
-              name="description"
-              value={newFood.description}
-              onChange={handleInputChange}
-              className="border p-2"
-            />
-          </label>
-          <label className="mb-2 text-black">
-            Ingredients/Allergenns:
-            <textarea
-              name="ingredients"
-              value={newFood.ingredients}
-              onChange={handleInputChange}
-              className="border p-2"
-            />
-          </label>
-          <label className="mb-2 text-black">
-            Organization:
-            <textarea
-              name="organization"
-              value={newFood.organization}
-              onChange={handleInputChange}
-              className="border p-2"
-            />
-          </label>
-          <button type="button" onClick={addItem} className="bg-blue-500 text-white p-2">
+          <label className="mb-2 text-black font-bold flex flex-col">
+            <span className="mb-1">English Name:</span>
+              <input
+                type="text"
+                name="english_name"
+                value={newFood.english_name}
+                onChange={handleInputChange}
+                className="p-2 bg-[#687259]"
+              />
+              </label>
+              <label className="mb-2 text-black font-bold flex flex-col">
+                <span className="mb-1">Traditional Name:</span>
+                <input
+                  type="text"
+                  name="traditional_name"
+                  value={newFood.traditional_name}
+                  onChange={handleInputChange}
+                  className="p-2 bg-[#687259]"
+                />
+              </label>
+
+              <div className="mb-2">
+                <label htmlFor="image" className="block mb-1 text-black font-bold">
+                  Image:
+                </label>
+                <div {...getRootProps()} className="p-2 cursor-pointer bg-[#687259]">
+                  <input {...getInputProps()} id="image" />
+                  {newFood.image ? (
+                    <img src={newFood.image} alt="Preview" className="max-w-full h-auto" />
+                  ) : (
+                    <p className="text-black">
+                      Drag 'n' drop an image here, or click to select one
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <label className="mb-2 text-black font-bold flex flex-col">
+                <span className="mb-1">Description/Cultural Facts:</span>
+                <textarea
+                  name="description"
+                  value={newFood.description}
+                  onChange={handleInputChange}
+                  className="p-2 bg-[#687259]"
+                />
+              </label>
+
+              <label className="mb-2 text-black font-bold flex flex-col">
+                <span className="mb-1">Ingredients/Allergens:</span>
+                <textarea
+                  name="ingredients"
+                  value={newFood.ingredients}
+                  onChange={handleInputChange}
+                  className="p-2 bg-[#687259]"
+                />
+              </label>
+
+              <label className="mb-2 text-black font-bold flex flex-col">
+                <span className="mb-1">Organization:</span>
+                <input
+                  name="organization"
+                  value={newFood.organization}
+                  onChange={handleInputChange}
+                  className="p-2 bg-[#687259]"
+                />
+              </label>
+          <button type="button" onClick={addItem} className="bg-[#924032] text-white p-2 mt-5">
             Add Food
           </button>
         </form>
