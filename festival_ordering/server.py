@@ -7,6 +7,16 @@ app = Flask(__name__)
 api = Api(app)
 db = Database()
 
+# Enable CORS for all routes
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS')
+    return response
+
+
+
 
 # Get menu function per organization
 @app.route('/menu', methods=['GET'])
@@ -28,47 +38,48 @@ def get_menu():
 
 @app.route('/menu', methods=['POST'])
 def add_item():
-    data = request.get_json()
-    # if 'english_name' not in data or 'organization' not in data or 'ingredients' not in data:
-    #     return jsonify({'error': 'Invalid request. Provide id, name, and price in JSON payload.'}), 400
+    print("trying to add item...")
 
-    description = data.get('description')
-    english_name = data.get('english_name')
-    ingredients = data.get('ingredients')
-    organization = data.get('organization')
-    traditional_name = data.get('traditional_name')
-    img_URL = data.get('img_URL')
-    db.add_item(english_name, traditional_name, organization, description, ingredients, img_URL)
+    if request.method == 'OPTIONS':
+        # Handle OPTIONS request (preflight)
+        return jsonify({'status': 'OK'}), 200
+    elif request.method == 'POST':
+        data = request.get_json()
+        description = data.get('description')
+        english_name = data.get('english_name')
+        ingredients = data.get('ingredients')
+        organization = data.get('organization')
+        traditional_name = data.get('traditional_name')
+        img_URL = data.get('img_URL')
+        print(english_name)
+        db.add_item(english_name, traditional_name, organization, description, ingredients, img_URL)
 
-    return jsonify({'result': 'Added item successfully.'})
+        return jsonify({'result': 'Added item successfully.'}), 200
 
 
 @app.route('/orders', methods=['GET'])
 def get_orders():
     try:
-        # data = request.get_json()
-        #
-        # user = data.get('user', None)
-        # organization_id = data.get('organization_id', None)
-        #
-        # if user is not None:
-        #     db.get_orders(user_id=user)
-        # elif organization_id is not None:
-        #     db.get_orders(organization_id=organization_id)
-        # else:
-        #     db.get_orders()
-
         user = request.args.get('user')
-        orders = db.get_orders(user)
+        organization_id = request.args.get('organization_id')
+
+        if user is not None:
+            orders = db.get_orders(user)
+        elif organization_id is not None:
+            orders = db.get_orders(organization_id=organization_id)
+        else:
+            return jsonify({'error': 'Either user or organization_id must be specified'})
+
+        if not orders:
+            return jsonify({'result': f'No orders found for the specified {"user" if user else "organization"}.'})
+
         items = list()
         for order in orders:
             order_info = order.to_dict()
             order_info['user'] = order_info.get('user').id
             items.append((order.id, order_info))
 
-        return jsonify({'result': orders})
-
-        # return jsonify({'result': get_orders})
+        return jsonify({'result': list(items)})
 
     except Exception as e:
         return jsonify({'error': str(e)}), 400

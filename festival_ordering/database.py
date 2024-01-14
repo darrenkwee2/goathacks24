@@ -6,6 +6,7 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 import datetime
 from google.cloud.firestore_v1 import FieldFilter
+from itertools import chain
 
 
 class Database:
@@ -29,21 +30,35 @@ class Database:
     def get_orders(self, user_id=None, organization_id=None):
         if user_id is not None:
             user = self.db.collection('users').document(user_id)
-            orders = (
+            orders_generator = (
                 self.db.collection('orders')
                 .where(filter=FieldFilter('user', '==', user))
                 .stream()
             )
         elif organization_id is not None:
             organization = self.db.collection('organizations').document(organization_id)
-            orders = (
-                self.db.collection('orders')
+            items_in_organization = (
+                self.db.collection('items')
                 .where(filter=FieldFilter('organization', '==', organization))
                 .stream()
             )
+            orders_generator = iter(())
+            for item in items_in_organization:
+                orders_of_item = (
+                    self.db.collection('orders')
+                    .where(filter=FieldFilter('item', '==', item.reference))
+                    .stream()
+                )
+                ref = item.reference
+                for oi in orders_of_item:
+                    print(oi)
+                orders_generator = chain(orders_generator, orders_of_item)
+
+            return orders_generator
+
         else:
-            orders = self.db.collection('orders').stream()
-        return orders
+            orders_generator = self.db.collection('orders').stream()
+        return orders_generator
 
     def get_items(self, organization):
         org_ref = self.db.collection('organizations').document(organization)
@@ -98,12 +113,13 @@ class Database:
 
 if __name__ == '__main__':
     db = Database()
+    sandwich = db.db.collection('items').document('sandwich')
+    # db.place_order('rvyDzQAc3WYk7T1lEzSRlTKHnwX2', sandwich)
     # db.place_order('rvyDzQAc3WYk7T1lEzSRlTKHnwX2', list(['chicken_satay']))
-    # db.place_order('rvyDzQAc3WYk7T1lEzSRlTKHnwX2', list(['chicken_satay']))
-    # db.place_order('rvyDzQAc3WYk7T1lEzSRlTKHnwX2', list(['chicken_satay']))
-    # db.place_order('rvyDzQAc3WYk7T1lEzSRlTKHnwX2', list(['chicken_satay']))
-    # db.place_order('rvyDzQAc3WYk7T1lEzSRlTKHnwX2', list(['chicken_satay']))
-    orders = list()
-    db.get_orders_realtime(orders)
-    while True:
-        time.sleep(3)
+    # orders = list()
+    # db.get_orders_realtime(orders)
+    # while True:
+    #     time.sleep(3)
+
+    # orders = db.get_orders(user_id='rvyDzQAc3WYk7T1lEzSRlTKHnwX2')
+    # orders = db.get_orders(organization_id='VSA')

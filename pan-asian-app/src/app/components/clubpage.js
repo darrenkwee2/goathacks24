@@ -58,7 +58,7 @@ const ClubPage = ({name, logo, orgFoods = []}) => {
         ingredients: foods.ingredients,
         organization: foods.organization,
       }
-      const response = await fetch('/menu', {
+      const response = await fetch('http://127.0.0.1:5000/menu', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -72,9 +72,20 @@ const ClubPage = ({name, logo, orgFoods = []}) => {
   
       const result = await response.json();
       console.log(result);
+
+      // const [newFood, setNewFood] = {
+      //   english_name: '',
+      //   traditional_name: '',
+      //   image: '',
+      //   description: '',
+      //   ingredients: '',
+      //   organization: '',
+      // };
+
     } catch (error) {
       console.error('Error:', error);
     }
+
   };
 
   return (
